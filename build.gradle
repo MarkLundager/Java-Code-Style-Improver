@@ -1,0 +1,181 @@
+/* Copyright (c) 2022, Idriss Riouak, riouakidriss@hotmail.it
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ * this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ * this list of conditions and the following disclaimer in the documentation
+ * and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its
+ * contributors may be used to endorse or promote products derived from this
+ * software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ */
+
+import org.apache.tools.ant.taskdefs.condition.Os
+
+plugins {
+  id 'java'
+  id 'org.jastadd' version '1.13.3'
+}
+
+defaultTasks 'jar'
+
+if (!file('extendj/jastadd_modules').exists()) {
+  throw new GradleException('ExtendJ seems to be missing. Please run "git submodule init", then "git submodule update".')
+}
+
+
+
+jastadd {
+  configureModuleBuild()
+
+  modules {
+    include("extendj/jastadd_modules") // Include core ExtendJ modules.
+
+    module "improver", {
+      imports "java8 frontend" // ExtendJ dependency for improver module.
+
+      jastadd {
+        basedir "src/jastadd/"
+        include "**/*.ast"
+        include "**/*.jadd"
+        include "**/*.jrag"
+      }
+    }
+  }
+
+  // Target module to build:
+  module = 'improver'
+  jastaddOptions = [ "--rewrite=cnta",
+                     "--safeLazy",
+                     "--visitCheck=false"]
+  astPackage = 'org.extendj.ast'
+  parser.name = 'JavaParser'
+  scanner.name = 'OriginalScanner'
+}
+
+sourceSets.main {
+  java {
+    srcDir 'extendj/src/frontend-main'
+    srcDir 'src/java'
+  }
+  resources {
+    srcDir 'src/java/magpiebridge/resources'
+    srcDir 'extendj/src/res'
+    srcDir jastadd.buildInfoDir
+  }
+  repositories {
+    mavenLocal()
+  }
+
+}
+
+dependencies{
+    testImplementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.12'
+    implementation 'com.github.magpiebridge:magpiebridge:0.1.5'
+    implementation 'com.sun.net.httpserver:http:20070405'
+    implementation group: 'org.freemarker', name: 'freemarker', version: '2.3.29'
+}
+
+sourceSets.test{
+  java{
+    srcDir 'src/java/test/'
+  }
+}
+
+test {
+   useJUnit()
+  dependsOn 'cleanTest'
+}
+
+
+task vsce(type:Exec) {
+    workingDir "."
+    commandLine 'sh', 'generate_vsce.sh'
+    println "DETECTED OS: not windows. Running `generate_vsce.sh`"
+    standardOutput = new ByteArrayOutputStream()
+    ext.output = {
+        return standardOutput.toString()
+    }
+}
+vsce.dependsOn 'build'
+
+
+task vscode(type: Jar) { 
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } } {
+        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+    }
+    from sourceSets.main.output
+    manifest {
+        attributes 'Main-Class': 'org.improver.frontend.Improver'
+    }
+    baseName = 'improver'
+    destinationDir= file('vscode')
+}
+
+task improver(type: Jar) { 
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    from { configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) } } {
+        exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
+    }
+    from sourceSets.main.output
+    manifest {
+            attributes 'Main-Class': 'org.improver.frontend.Improver'
+    }
+    baseName = 'improver'
+    destinationDir = projectDir
+}
+
+artifacts {
+    archives  vscode, improver;
+}
+
+jar.destinationDirectory = projectDir
+
+// Java -source and -target version.
+sourceCompatibility = targetCompatibility = '1.8'
+
+task sourceZip(type: Zip) {
+  description 'Builds a Zip file with the entire repisotory (including the ExtendJ submodule).'
+  destinationDirectory = projectDir
+  archiveFileName = "improver-src.zip"
+
+  from (projectDir) {
+    exclude '**/.git'
+    exclude '**/.gitignore'
+    exclude '**/.gitattributes'
+    exclude '**/.gitmodules'
+    exclude 'build'
+    exclude 'bin'
+    exclude '.gradle'
+    exclude '.classpath'
+    exclude '.settings'
+    exclude '.project'
+    exclude '*.jar'
+    exclude '*.zip'
+    exclude '**/*.swp'
+  }
+
+  into 'improver'
+}
