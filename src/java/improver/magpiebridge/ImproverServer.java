@@ -83,6 +83,7 @@ public class ImproverServer implements ServerAnalysis {
     activeAnalyses = new LinkedHashMap<CodeAnalysis, Boolean>();
     // Add your analysis here
     activeAnalyses.put(new StringEqAnalysis(), true);
+    activeAnalyses.put(new IFRCAnalysis(), true);
     last = new ArrayList<>(activeAnalyses.size());
   }
 

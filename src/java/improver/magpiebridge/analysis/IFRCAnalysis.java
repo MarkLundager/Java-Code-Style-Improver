@@ -27,12 +27,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
-import org.improver.magpiebridge.utils.Pos;
 
-aspect IFRC {
+package org.extendj.magpiebridge.analysis;
 
-  syn boolean IfStmt.isIFRC(){
-    return true;
-  }
+import java.util.Set;
+import org.improver.analysis.utils.Warning;
+import org.extendj.ast.CompilationUnit;
+import org.improver.magpiebridge.analysis.CodeAnalysis;
+
+public class IFRCAnalysis extends CodeAnalysis {
+  protected Set<Warning> getWarnings(CompilationUnit cu) { return cu.IFRC(); }
+
+  public String getName() { return "IFRCAnalysis"; }
 }
