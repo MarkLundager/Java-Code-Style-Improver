@@ -1,2 +1,2 @@
-# Edan70
+# EDAN70
 Project in Compilers
