@@ -64,6 +64,7 @@ aspect STREQ {
     return null;
   }
 
+  //dafuq is the point of this?
   syn Position Variable.getPosition() {
     try {
       Position res =

@@ -32,12 +32,36 @@ import org.improver.magpiebridge.utils.Pos;
 
 aspect IFRC {
 
-  syn boolean Stmt.checkIFRC() = false;
+  syn boolean Stmt.checkIFRC(String  bool) = false;
+  syn boolean Stmt.isReturn() = false;
+  eq ReturnStmt.isReturn() = true;
+  syn boolean Expr.isBooleanLiteral() = false;
+  eq BooleanLiteral.isBooleanLiteral() = true;
+
+  eq Block.checkIFRC(String bool) = getStmt(0).isReturn() && ((ReturnStmt)getStmt(0)).getResult().isBooleanLiteral() 
+   && ((BooleanLiteral)((ReturnStmt)getStmt(0)).getResult()).getLITERAL().equals(bool);
+
 
   syn boolean IfStmt.isIFRC(){
-    if(hasElse()){
-      return getThen().checkIFRC() && getElse().checkIFRC();
-    }
-    return false;
+    return hasElse() && getThen().checkIFRC("true") && getElse().checkIFRC("false");
   }
+
+
+  syn java.util.List<Pair<Position, String>> IfStmt.getRelatedInfo() {
+    java.util.List<Pair<Position, String>> result = new ArrayList<>();
+    result.add(
+        Pair.make(getPosition(), prettyPrint() + " Unnecessary IF statement"));
+    return result;
+  }
+
+  syn Pair<Position, String> IfStmt.getRepair() = Pair.make(getPosition(), "return " + getCondition().prettyPrint() + ";");
+  
+
+  IfStmt contributes warning(
+    getCompilationUnit().pathName(),
+    "Unnecessary IF statement when returning the value of the condition.",
+    Analysis.AvailableAnalysis.IFRC, getRepair(), getRelatedInfo()) 
+    when
+    isIFRC()
+    to CompilationUnit.IFRC();
 }

@@ -35,6 +35,7 @@ import java.net.URL;
 
 
 public class Improver extends Frontend{
+    public static Object CodeProber_root_node;
     private Collection<String> vscodeArgs;
     private static Improver improver;
     private static MagpieServer magpiebridgeServer; 
@@ -44,7 +45,9 @@ public class Improver extends Frontend{
 
     public static void main(String[] args){
         Improver improver = new Improver();
-         createServer().launchOnStdio();
+        improver.run(args); //can be replaced with run() I think.
+        CodeProber_root_node = improver.getEntryPoint();
+        createServer().launchOnStdio();
     }
 
   public MagpieServer getServer() {
@@ -60,7 +63,7 @@ public class Improver extends Frontend{
     ServerConfiguration config = new ServerConfiguration();
  
     config.setDoAnalysisBySave(true);
-    config.setDoAnalysisByFirstOpen(true);
+    config.setDoAnalysisByFirstOpen(false);
     config.setDoAnalysisByOpen(true);
     config.setShowConfigurationPage(true, true);
     config.setUseMagpieHTTPServer(true);
@@ -178,4 +181,5 @@ public class Improver extends Frontend{
   public int numCompilationUnits(ArrayList<CompilationUnit> compilationUnits) {
     return compilationUnits.size();
   }
+
 }
