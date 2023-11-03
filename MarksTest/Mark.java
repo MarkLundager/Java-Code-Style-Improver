@@ -6,12 +6,10 @@ public class Mark {
         System.out.println("appa" == "apa");
     }
     public boolean mark(int y){
-        if(y>this.x){
-            return true;
-        }
-        else{
-            return false;
-        }
+                if(x>y){
+                    return false;
+                }
+                return true;
     }
 }
 

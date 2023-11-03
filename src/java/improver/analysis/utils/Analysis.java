@@ -78,7 +78,8 @@ public class Analysis {
   public enum AvailableAnalysis {
 //  Add here your analisi name: 
   STREQ,
-  IFRC;
+  IFRC,
+  IFRT;
 
     public static String[] names() {
       String valuesStr = Arrays.toString(AvailableAnalysis.values());

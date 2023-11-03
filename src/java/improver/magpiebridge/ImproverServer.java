@@ -84,6 +84,7 @@ public class ImproverServer implements ServerAnalysis {
     // Add your analysis here
     activeAnalyses.put(new StringEqAnalysis(), true);
     activeAnalyses.put(new IFRCAnalysis(), true);
+    activeAnalyses.put(new IFRTAnalysis(), true);
     last = new ArrayList<>(activeAnalyses.size());
   }
 

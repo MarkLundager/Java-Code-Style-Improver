@@ -32,18 +32,22 @@ import org.improver.magpiebridge.utils.Pos;
 
 aspect IFRC {
 
-  syn boolean Stmt.checkIFRC(String  bool) = false;
+  syn boolean Stmt.checkIFRC(boolean bool) = false;
   syn boolean Stmt.isReturn() = false;
   eq ReturnStmt.isReturn() = true;
   syn boolean Expr.isBooleanLiteral() = false;
   eq BooleanLiteral.isBooleanLiteral() = true;
 
-  eq Block.checkIFRC(String bool) = getStmt(0).isReturn() && ((ReturnStmt)getStmt(0)).getResult().isBooleanLiteral() 
-   && ((BooleanLiteral)((ReturnStmt)getStmt(0)).getResult()).getLITERAL().equals(bool);
+  eq Block.checkIFRC(boolean bool) = getNumStmt() > 0
+  && getStmt(0).isReturn() 
+  && ((ReturnStmt)getStmt(0)).returnsBooleanLiteral(bool);
 
 
   syn boolean IfStmt.isIFRC(){
-    return hasElse() && getThen().checkIFRC("true") && getElse().checkIFRC("false");
+    return hasElse() && getThen().checkIFRC(true) && getElse().checkIFRC(false);
+  }
+  syn boolean IfStmt.isReversedIFRC(){
+    return hasElse() && getThen().checkIFRC(false) && getElse().checkIFRC(true);
   }
 
 
@@ -54,14 +58,22 @@ aspect IFRC {
     return result;
   }
 
-  syn Pair<Position, String> IfStmt.getRepair() = Pair.make(getPosition(), "return " + getCondition().prettyPrint() + ";");
-  
+  syn Pair<Position, String> IfStmt.getIFRCRepair() = Pair.make(getPosition(), "return " + getCondition().prettyPrint() + ";");
+  syn Pair<Position, String> IfStmt.getIFRCReversedRepair() = Pair.make(getPosition(), "return !(" + getCondition().prettyPrint() + ");");
 
   IfStmt contributes warning(
     getCompilationUnit().pathName(),
     "Unnecessary IF statement when returning the value of the condition.",
-    Analysis.AvailableAnalysis.IFRC, getRepair(), getRelatedInfo()) 
+    Analysis.AvailableAnalysis.IFRC, getIFRCRepair(), getRelatedInfo()) 
     when
     isIFRC()
+    to CompilationUnit.IFRC();
+
+  IfStmt contributes warning(
+    getCompilationUnit().pathName(),
+    "Unnecessary IF statement when returning the value of the condition.",
+    Analysis.AvailableAnalysis.IFRC, getIFRCReversedRepair(), getRelatedInfo()) 
+    when
+    isReversedIFRC()
     to CompilationUnit.IFRC();
 }

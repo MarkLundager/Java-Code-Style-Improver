@@ -40,6 +40,8 @@ aspect Analysis {
       root CompilationUnit;
   coll TreeSet<Warning> CompilationUnit.IFRC()[new TreeSet<Warning>()] with add
       root CompilationUnit;
+  coll TreeSet<Warning> CompilationUnit.IFRT()[new TreeSet<Warning>()] with add
+      root CompilationUnit;
 
 
   /**This class contains all the information related to a specific warning:
