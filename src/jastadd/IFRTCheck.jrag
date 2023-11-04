@@ -98,20 +98,31 @@ aspect IFRT {
     return null;
   }
 
-  IfStmt contributes warning(
+
+  Warning IfStmt.ifrtWarning(String loc, String msg,
+    Analysis.AvailableAnalysis analysis,
+    Pair<Position, String> repair,
+    java.util.List<Pair<Position, String>> relatedInfo) {
+    Stmt s = getNextStmt();
+    return new Warning(loc, analysis, lineStart(), columnStart() - 1, s.lineEnd(),
+    s.columnEnd(), msg, repair, relatedInfo);
+}
+
+
+  IfStmt contributes ifrtWarning(
     getCompilationUnit().pathName(),
-    "Unnecessary IF statement when returning the value of the condition.",
+    "IFRT",
     Analysis.AvailableAnalysis.IFRT, getIFRTReversedRepair(), getRelatedIFRTInfo()) 
     when
     isIFRTReverse()
     to CompilationUnit.IFRT();
 
-    IfStmt contributes warning(
-      getCompilationUnit().pathName(),
-      "Unnecessary IF statement when returning the value of the condition.",
-      Analysis.AvailableAnalysis.IFRT, getIFRTRepair(), getRelatedIFRTInfo()) 
-      when
-      isIFRT()
-      to CompilationUnit.IFRT();
+  IfStmt contributes ifrtWarning(
+    getCompilationUnit().pathName(),
+    "IFRT",
+    Analysis.AvailableAnalysis.IFRT, getIFRTRepair(), getRelatedIFRTInfo()) 
+    when
+    isIFRT()
+    to CompilationUnit.IFRT();
 }
 
