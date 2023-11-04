@@ -79,7 +79,8 @@ public class Analysis {
 //  Add here your analisi name: 
   STREQ,
   IFRC,
-  IFRT;
+  IFRT,
+  EIFB;
 
     public static String[] names() {
       String valuesStr = Arrays.toString(AvailableAnalysis.values());

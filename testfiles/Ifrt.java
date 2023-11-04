@@ -3,7 +3,8 @@ public class Ifrt {
 
     public static void main(String[] args) {
 
-        System.out.println("appa" == "apa");
+       ifrt(1);
+       ifrtReversed(2);
     }
     public boolean ifrt(int y){
         if(x>y){

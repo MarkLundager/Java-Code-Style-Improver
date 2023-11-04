@@ -3,7 +3,8 @@ public class Ifrc {
 
     public static void main(String[] args) {
 
-        System.out.println("appa" == "apa");
+        ifrc(1);
+        ifrcReversed(2);
     }
 
     public boolean ifrc(int y){
