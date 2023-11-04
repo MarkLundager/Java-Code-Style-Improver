@@ -5,11 +5,35 @@ public class Mark {
 
         System.out.println("appa" == "apa");
     }
-    public boolean mark(int y){
-                if(x>y){
-                    return false;
-                }
-                return true;
+    public boolean ifrt(int y){
+        if(x>y){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean ifrtReversed(int y){
+        if(x>y){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean ifrc(int y){
+        if(x>y){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public boolean ifrcReversed(int y){
+        if(x>y){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 }
 

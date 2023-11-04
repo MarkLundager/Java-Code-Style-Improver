@@ -63,7 +63,7 @@ public class Improver extends Frontend{
     ServerConfiguration config = new ServerConfiguration();
  
     config.setDoAnalysisBySave(true);
-    config.setDoAnalysisByFirstOpen(false);
+    config.setDoAnalysisByFirstOpen(true);
     config.setDoAnalysisByOpen(true);
     config.setShowConfigurationPage(true, true);
     config.setUseMagpieHTTPServer(true);

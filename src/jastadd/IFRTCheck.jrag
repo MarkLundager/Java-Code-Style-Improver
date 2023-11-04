@@ -82,7 +82,7 @@ aspect IFRT {
   syn java.util.List<Pair<Position, String>> IfStmt.getRelatedIFRTInfo() {
     java.util.List<Pair<Position, String>> result = new ArrayList<>();
     result.add(
-        Pair.make(getIFRTPosition(), prettyPrint() + getNextStmt().prettyPrint() + "Unnecessary IF statement preceding with return false"));
+        Pair.make(getIFRTPosition(), prettyPrint() + "\n" + getNextStmt().prettyPrint() + "Unnecessary IF statement preceding with return false"));
     return result;
   }
 
