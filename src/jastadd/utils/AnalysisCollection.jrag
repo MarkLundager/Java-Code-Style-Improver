@@ -57,9 +57,10 @@ protected
   Warning ASTNode.warning(String loc, String msg,
                           Analysis.AvailableAnalysis analysis,
                           Pair<Position, String> repair,
-                          java.util.List<Pair<Position, String>> relatedInfo) {
-    return new Warning(loc, analysis, lineStart(), columnStart() - 1, lineEnd(),
-                       columnEnd(), msg, repair, relatedInfo);
+                          java.util.List<Pair<Position, String>> relatedInfo,
+                          Position pos) {
+    return new Warning(loc, analysis, pos.getFirstLine(), pos.getFirstCol() - 1, pos.getLastLine(),
+    pos.getLastCol(), msg, repair, relatedInfo);
   }
 
   syn Integer ASTNode.lineStart() = getLine(getStart());

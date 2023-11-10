@@ -99,28 +99,18 @@ aspect IFRT {
   }
 
 
-  Warning IfStmt.ifrtWarning(String loc, String msg,
-    Analysis.AvailableAnalysis analysis,
-    Pair<Position, String> repair,
-    java.util.List<Pair<Position, String>> relatedInfo) {
-    Stmt s = getNextStmt();
-    return new Warning(loc, analysis, lineStart(), columnStart() - 1, s.lineEnd(),
-    s.columnEnd(), msg, repair, relatedInfo);
-}
-
-
-  IfStmt contributes ifrtWarning(
+  IfStmt contributes warning(
     getCompilationUnit().pathName(),
     "IFRT",
-    Analysis.AvailableAnalysis.IFRT, getIFRTReversedRepair(), getRelatedIFRTInfo()) 
+    Analysis.AvailableAnalysis.IFRT, getIFRTReversedRepair(), getRelatedIFRTInfo(),getIFRTPosition()) 
     when
     isIFRTReverse()
     to CompilationUnit.IFRT();
 
-  IfStmt contributes ifrtWarning(
+  IfStmt contributes warning(
     getCompilationUnit().pathName(),
     "IFRT",
-    Analysis.AvailableAnalysis.IFRT, getIFRTRepair(), getRelatedIFRTInfo()) 
+    Analysis.AvailableAnalysis.IFRT, getIFRTRepair(), getRelatedIFRTInfo(),getIFRTPosition()) 
     when
     isIFRT()
     to CompilationUnit.IFRT();

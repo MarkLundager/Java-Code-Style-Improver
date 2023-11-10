@@ -67,7 +67,7 @@ aspect EIFB {
   IfStmt contributes warning(
     getCompilationUnit().pathName(),
     "EIFBWarning",
-    Analysis.AvailableAnalysis.IFRC, getEIFBRepair(), getRelatedInfoEIFB()) 
+    Analysis.AvailableAnalysis.IFRC, getEIFBRepair(), getRelatedInfoEIFB(),getPosition()) 
     when
     isEIFB()
     to CompilationUnit.EIFB();

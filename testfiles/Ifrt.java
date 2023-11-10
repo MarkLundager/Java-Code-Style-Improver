@@ -8,6 +8,9 @@ public class Ifrt {
     }
     public boolean ifrt(int y){
         if(x>y){
+            int x = 5;
+            for(stmt in block){
+            }
             return true;
         }
         return false;
