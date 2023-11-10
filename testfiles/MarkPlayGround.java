@@ -23,7 +23,7 @@ public class MarkPlayGround {
             content = Files.readString(filePath).split("\n");
             System.out.println(content[0]);
             System.out.println(content[1]);
-            System.out.println(content[2]);
+            System.out.println(content[2].substring(0, colEnd));
             s = content[0] + " " + content[1]  +  content[2];
             sb.append(content[0]);
             sb.append(content[1]);
