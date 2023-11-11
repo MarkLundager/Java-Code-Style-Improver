@@ -58,9 +58,22 @@ aspect IFRC {
     return result;
   }
 
-  syn Pair<Position, String> IfStmt.getIFRCRepair() = Pair.make(getPosition(), "return " + getCondition().prettyPrint() + ";");
-  syn Pair<Position, String> IfStmt.getIFRCReversedRepair() = Pair.make(getPosition(), "return !(" + getCondition().prettyPrint() + ");");
-
+  syn Pair<Position, String> IfStmt.getIFRCRepair(){ 
+    if(hasComment(getPosition()).equals("")){
+      return Pair.make(getPosition(), "return " + getCondition().prettyPrint() + ";");
+    }
+    else{
+      return Pair.make(getPosition(), hasComment(getPosition()) + "return " + getCondition().prettyPrint() + ";");
+    }
+  }
+  syn Pair<Position, String> IfStmt.getIFRCReversedRepair(){ 
+    if(hasComment(getPosition()).equals("")){
+      return Pair.make(getPosition(), "return !(" + getCondition().prettyPrint() + ");");
+    }
+    else{
+      return Pair.make(getPosition(), hasComment(getPosition()) +  "return !(" + getCondition().prettyPrint() + ");");
+    }
+  }
   IfStmt contributes warning(
     getCompilationUnit().pathName(),
     "Unnecessary IF statement when returning the value of the condition.",

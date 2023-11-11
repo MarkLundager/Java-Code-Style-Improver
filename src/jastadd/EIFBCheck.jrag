@@ -42,8 +42,15 @@ aspect EIFB {
 
 
   syn boolean IfStmt.isEIFB() = hasElse() && getThen().isBlock() && ((Block) getThen()).getNumStmt() == 0;
-  syn Pair<Position, String> IfStmt.getEIFBRepair() = 
-  Pair.make(getPosition(), "if(!(" + getCondition().prettyPrint() + "))" + ((Block)getElse()).blockPrettyPrint(columnStart()-1));
+  syn Pair<Position, String> IfStmt.getEIFBRepair(){
+    if(hasComment(getPosition()).equals("")){
+      return Pair.make(getPosition(), "if(!(" + getCondition().prettyPrint() + "))" + ((Block)getElse()).blockPrettyPrint(columnStart()-1));
+    }
+    else{
+      return Pair.make(getPosition(),hasComment(getPosition()) + "if(!(" + getCondition().prettyPrint() + "))" + ((Block)getElse()).blockPrettyPrint(columnStart()-1));
+    }
+  } 
+
 
   syn String Block.blockPrettyPrint(int indentation){
 

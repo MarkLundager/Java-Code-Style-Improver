@@ -65,8 +65,23 @@ aspect IFRT {
   syn boolean IfStmt.isIFRTReverse() = checkIFRT(false);
 
 
-  syn Pair<Position, String> IfStmt.getIFRTRepair() = Pair.make(getIFRTPosition(), "return " + getCondition().prettyPrint() + ";");
-  syn Pair<Position, String> IfStmt.getIFRTReversedRepair() = Pair.make(getIFRTPosition(), "return !(" + getCondition().prettyPrint() + ");");
+  syn Pair<Position, String> IfStmt.getIFRTRepair(){
+    if(hasComment(getIFRTPosition()).equals("")){
+      return Pair.make(getIFRTPosition(), "return " + getCondition().prettyPrint() + ";");
+    }
+    else{
+      return Pair.make(getIFRTPosition(), hasComment(getIFRTPosition()) + "return " + getCondition().prettyPrint() + ";");
+    }
+    
+}
+  syn Pair<Position, String> IfStmt.getIFRTReversedRepair(){
+    if(hasComment(getIFRTPosition()).equals("")){
+      return Pair.make(getIFRTPosition(), "return !(" + getCondition().prettyPrint() + ");");
+    }
+    else{
+      return Pair.make(getIFRTPosition(), hasComment(getIFRTPosition()) + "return !(" + getCondition().prettyPrint() + ");");
+    }
+  } 
 
   //utility
   inh Stmt Stmt.getNextStmt();
@@ -97,6 +112,7 @@ aspect IFRT {
     }
     return null;
   }
+
 
 
   IfStmt contributes warning(

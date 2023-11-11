@@ -1,6 +1,10 @@
 
-import java.nio.file.Path;
-import java.nio.file.Files;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MarkPlayGround {       
     public static void main(String[] args){
@@ -9,6 +13,8 @@ public class MarkPlayGround {
         int lineEnd = Integer.parseInt(args[2]);
         int colEnd = Integer.parseInt(args[3]);
         StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
+
         String[] content;
         String s = "";
         //linestart = 2;
@@ -16,37 +22,41 @@ public class MarkPlayGround {
         //line end = 3;
         //colend = 14;
 
-
-        Path filePath = Path.of("/mnt/c/users/Mark_/Documents/EDAN70/testfiles/marktemp.txt");
-        //Path filePath = Path.of("C:\\Users\\Mark_\\Documents\\EDAN70\\testfiles\\marktemp.txt");
         try{
-            content = Files.readString(filePath).split("\n");
-            System.out.println(content[0]);
-            System.out.println(content[1]);
-            System.out.println(content[2].substring(0, colEnd));
-            s = content[0] + " " + content[1]  +  content[2];
-            sb.append(content[0]);
-            sb.append(content[1]);
-            sb.append(content[2]);
-            // for(int i = lineStart-1; i<=lineEnd-1; i++){
-            //     if(i == lineEnd-1){
-            //         sb.append(content[i]);
-            //         System.out.println("lastline");
-            //         System.out.println(sb.toString());
-            //     }
-            //     else{
-            //         sb.append(content[i]);
-            //         System.out.println("FirstLine");
-            //         System.out.println(sb.toString() );
-            //     }
-            System.out.println(s);
-            System.out.println(sb.toString());
+            File file = new File("/mnt/c/users/Mark_/Documents/EDAN70/testfiles/marktemp.txt");
+            Scanner scnr = new Scanner(file);
+            for(int i = 0; i<lineStart-1; i++){
+                scnr.nextLine();
+            }
+            for(int i = 0; i < lineEnd+1-lineStart; i++){
+                
+                if(i < lineEnd-lineStart){
+                    sb.append(scnr.nextLine());
+                    sb.append("\n");
+                }
+                else{
+                    sb.append(scnr.nextLine().substring(0, colEnd));
+                }
+            }
+            String temp = sb.toString();
+            Pattern test = Pattern.compile("/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/|(//.*\n)");
+            Matcher matcher = test.matcher(temp);
+            while(matcher.find()){
+                System.out.println("Found: " + matcher.group());
+                result.append(matcher.group());
+            }
+                System.out.println("yeap " +result.toString());
+                if(result.toString().equals("")){
+                    System.out.println("SADASDSASASADSA");
+
+                }
             }
         catch(Exception e){
             e.printStackTrace();
         }
 
-        
+        /*
+        */
 
     }
 }

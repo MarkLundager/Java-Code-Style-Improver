@@ -8,9 +8,11 @@ public class Ifrc {
     }
 
     public boolean ifrc(int y){
-        if(x>y){
+        if(x/*crazy comment 1*/>y/*Comment 2 in the middle*/){
             return true;
-        }
+        }//comment 3
+        /* comment4 multilines
+        still comment 4*/
         else{
             return false;
         }
