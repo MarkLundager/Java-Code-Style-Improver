@@ -65,8 +65,23 @@ aspect IFRT {
   syn boolean IfStmt.isIFRTReverse() = checkIFRT(false);
 
 
-  syn Pair<Position, String> IfStmt.getIFRTRepair() = Pair.make(getIFRTPosition(), "return " + getCondition().prettyPrint() + ";");
-  syn Pair<Position, String> IfStmt.getIFRTReversedRepair() = Pair.make(getIFRTPosition(), "return !(" + getCondition().prettyPrint() + ");");
+  syn Pair<Position, String> IfStmt.getIFRTRepair(){
+    if(hasComment(getIFRTPosition()).equals("")){
+      return Pair.make(getIFRTPosition(), "return " + getCondition().prettyPrint() + ";");
+    }
+    else{
+      return Pair.make(getIFRTPosition(), hasComment(getIFRTPosition()) + "return " + getCondition().prettyPrint() + ";");
+    }
+    
+}
+  syn Pair<Position, String> IfStmt.getIFRTReversedRepair(){
+    if(hasComment(getIFRTPosition()).equals("")){
+      return Pair.make(getIFRTPosition(), "return !(" + getCondition().prettyPrint() + ");");
+    }
+    else{
+      return Pair.make(getIFRTPosition(), hasComment(getIFRTPosition()) + "return !(" + getCondition().prettyPrint() + ");");
+    }
+  } 
 
   //utility
   inh Stmt Stmt.getNextStmt();
@@ -99,28 +114,19 @@ aspect IFRT {
   }
 
 
-  Warning IfStmt.ifrtWarning(String loc, String msg,
-    Analysis.AvailableAnalysis analysis,
-    Pair<Position, String> repair,
-    java.util.List<Pair<Position, String>> relatedInfo) {
-    Stmt s = getNextStmt();
-    return new Warning(loc, analysis, lineStart(), columnStart() - 1, s.lineEnd(),
-    s.columnEnd(), msg, repair, relatedInfo);
-}
 
-
-  IfStmt contributes ifrtWarning(
+  IfStmt contributes warning(
     getCompilationUnit().pathName(),
     "IFRT",
-    Analysis.AvailableAnalysis.IFRT, getIFRTReversedRepair(), getRelatedIFRTInfo()) 
+    Analysis.AvailableAnalysis.IFRT, getIFRTReversedRepair(), getRelatedIFRTInfo(),getIFRTPosition()) 
     when
     isIFRTReverse()
     to CompilationUnit.IFRT();
 
-  IfStmt contributes ifrtWarning(
+  IfStmt contributes warning(
     getCompilationUnit().pathName(),
     "IFRT",
-    Analysis.AvailableAnalysis.IFRT, getIFRTRepair(), getRelatedIFRTInfo()) 
+    Analysis.AvailableAnalysis.IFRT, getIFRTRepair(), getRelatedIFRTInfo(),getIFRTPosition()) 
     when
     isIFRT()
     to CompilationUnit.IFRT();

@@ -34,7 +34,7 @@ aspect STREQ {
   EQExpr contributes warning(
       getCompilationUnit().pathName(),
       "Use of '==' to compare strings is discouraged. Use 'equals()' instead.",
-      Analysis.AvailableAnalysis.STREQ, null, getRelatedInfo()) when
+      Analysis.AvailableAnalysis.STREQ, null, getRelatedInfo(),getPosition()) when
       left()
           .type()
           .isString() &&

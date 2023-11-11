@@ -7,17 +7,17 @@ public class Ifrt {
        ifrtReversed(2);
     }
     public boolean ifrt(int y){
-        if(x>y){
+        if(x>/*crazy comment*/y){//apa
             return true;
-        }
-        return false;
+        }//apa
+        return false; //comment
     }
 
     public boolean ifrtReversed(int y){
-        if(x>y){
+        if(x>/*dafduq*/y){//comment
             return false;
         }
-        return true;
+        return/*pussy*/ true; //comment
     }
 }
 

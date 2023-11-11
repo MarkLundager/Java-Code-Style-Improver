@@ -5,11 +5,11 @@ public class Ifrt {
         eifb(2);
     }
     public boolean eifb(int y){
-        if(x>y){
-        }
+        if(x>/*dafuq*/y){
+        }//hold up
         else{
-            return false;
-        }
+            return/*this is crazzy*/ false;
+        /*chill*/}
     }
     public boolean eifb2(int y){
         if(!(x > y)){
