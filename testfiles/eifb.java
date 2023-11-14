@@ -1,21 +1,33 @@
-public class Ifrt {       
-    int x = 4;
-
+public class eifb {
     public static void main(String[] args) {
-        eifb(2);
+        
+        int[] x = { 1, 2, 3, 4, 5, 6, 7, 8 };
+
+        eifb EIFB = new eifb();
+        EIFB.eifbody(x);
     }
-    public boolean eifb(int y){
-        if(x>y){
-        }
-        else{
-            return false;
-        }
-    }
-    public boolean eifb2(int y){
-        if(!(x > y)){
-            return false;
+
+    public void eifbody(int[] values){
+        int j = 0;
+        for(int i = 0; i < values.length; i++){
+            if(values[i]%2 == 0 ){
+
+            }else{
+                j++;
+            }
         }
     }
 
+    public void eeb(int[] values) {
+        int j = 0;
+        for(int i = 0; i < values.length; i++){
+            if(values[i]%2 == 0 ){
+                j++;
+
+            }else{
+            }
+
+        }
+
+    }
 }
-

@@ -2,9 +2,9 @@ public class Ifrc {
     int x = 4;
 
     public static void main(String[] args) {
-
-        ifrc(1);
-        ifrcReversed(2);
+        Ifrc ifrc = new Ifrc();
+        ifrc.ifrc(1);
+        iffrc.ifrcReversed(2);
     }
 
     public boolean ifrc(int y){
