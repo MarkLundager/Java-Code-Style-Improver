@@ -13,3 +13,9 @@ Project in Compilers
 * EIFB prettyprint issue, how to solve? OUT OF SCOPE
 * Comment saver (Compilation unit has access to filepath, use regexes to find comments and prepend them before prettyprint) FINISHED!
 * For each loop, start implementing.
+
+# WEEK3
+
+* FIX AUTOMATED TEST
+* Andreas: Fix his shit
+* Additions to report
