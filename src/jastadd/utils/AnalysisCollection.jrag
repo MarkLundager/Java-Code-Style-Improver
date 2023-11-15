@@ -44,6 +44,8 @@ aspect Analysis {
       root CompilationUnit;
   coll TreeSet<Warning> CompilationUnit.EIFB()[new TreeSet<Warning>()] with add
       root CompilationUnit;
+    coll TreeSet<Warning> CompilationUnit.INCLASS()[new TreeSet<Warning>()] with add
+      root CompilationUnit;
 
 
   /**This class contains all the information related to a specific warning:

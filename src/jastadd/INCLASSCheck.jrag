@@ -30,10 +30,35 @@
  
  import org.improver.magpiebridge.utils.Pos;
 
- aspect CE {
-    syn boolean Stmt.isBlock() = false;
-    eq Block.isBlock() = true;
+ aspect INCLASS {
+   
+  syn boolean Expr.isInclAss() = false;
+  syn boolean Expr.checkInclAss(Expr Dest, Expr Source) = false;
+  syn boolean AssignAdditiveExpr.checkInclAss(Expr Dest, AddExpr Source);
+  syn boolean AssignMultiplicativeExpr.checkInclAss(Expr Dest, MulExpr Source);
 
-    inh boolean IfStmt.checkCE(boolean bool);
-    
+  eq AssignAdditiveExpr.checkInclAss(Expr Dest, AddExpr Source) = Dest.getId().equals(Source.getLeftOperand().getId()) || Dest.getId().equals(Source.getRightOperand().getId());
+  eq AssignMultiplicativeExpr.checkInclAss(Expr Dest, MulExpr Source) = Dest.getId().equals(Source.getLeftOperand().getId())|| Dest.getId().equals(Source.getRightOperand().getId());
+   
+  syn boolean AssignExpr.isInclAss() = false;
+  syn boolean AssignMultiplicativeExpr.isInclAss() {
+    return checkInclAss(getDest(), getSource());
+   }  
+   syn boolean AssignAdditiveExpr.isInclAss(){
+    return checkInclAss(getDest(), getSource());
+   }
+   syn java.util.List<Pair<Position, String>> AssignExpr.getRelatedInfo() {
+    java.util.List<Pair<Position, String>> result = new ArrayList<>();
+    result.add(
+        Pair.make(getPosition(), prettyPrint() + " Unnecessary IF statement"));
+    return result;
+  }
+
+   AssignExpr contributes warning(
+       getCompilationUnit().pathName(),
+       "Using a = a + 5 is the same thing as simply writing a += 5. This fix might help you avoid a double maintenance problem.",
+       Analysis.AvailableAnalysis.STREQ, null, getRelatedInfo()) when isInclAss() to CompilationUnit.INCLASS();
+   
+      
  }
+ 

@@ -80,7 +80,8 @@ public class Analysis {
   STREQ,
   IFRC,
   IFRT,
-  EIFB;
+  EIFB,
+  INCLASS;
 
     public static String[] names() {
       String valuesStr = Arrays.toString(AvailableAnalysis.values());
