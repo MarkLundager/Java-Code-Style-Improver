@@ -72,7 +72,7 @@ public class Improver extends Frontend{
     IProjectService javaProjectService = new JavaProjectService();
     magpiebridgeServer.addProjectService(language, javaProjectService);
     Either<ServerAnalysis, ToolAnalysis> analysis =
-        Either.forLeft(serverAnalysis);
+    Either.forLeft(serverAnalysis);
     magpiebridgeServer.addAnalysis(analysis, language);
     return magpiebridgeServer;
   }
