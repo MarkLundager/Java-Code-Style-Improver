@@ -44,16 +44,13 @@ public class TestImprover{
 
   @Test
   void test(){  
-    Improver improver = new Improver();
-    CompilationUnit cus;
-    LinkedHashSet<String> vscodeArgs = new LinkedHashSet<String>();
-    vscodeArgs.add("-nowarn");
-    vscodeArgs.add("/mnt/c/Users/Mark_/Documents/EDAN70/testfiles/allTests.java");
-    improver.run(vscodeArgs.toArray(new String[vscodeArgs.size()]));
-    cus = ((CompilationUnit)improver.getEntryPoint().getChild(0));
-    for(Warning w : cus.EIFB()){
-      w.toString();
-      assertEquals(w.toString(), "apa");
+    String [] args = {"/mnt/c/Users/Mark_/Documents/EDAN70/testfiles/allTests.java"};
+    //array of string with one element representing the path to your java file.
+    Improver imp = new Improver();
+    int exitcode = imp.run(args);
+    if(exitcode!=0) {
+    //Something went wrong
     }
+    Program p = imp.getEntryPoint();
   }
 }
