@@ -1,28 +1,34 @@
-# EDAN70
+# How to build, test and run.
 
-Project in Compilers
+## Building && running
+
+1. Clone to repository locally.
+
+2. type git submodule update --init --recursive to make sure you have extendj IDRISS WE NEED HELP HERE.
+
+3. build the project, i.e. type "./gradlew clean build" on Linux and "gradlew clean build" on windows in the terminal. Please note you need to
+   be located in the root of the project.
+
+4. To install the vscode extension (only works on linux) type ./generate_vsce.sh in the terminal. Make sure you have npm and vsce installed!
+
+5. Now reload vscode and open a java project. If vscode was already open, make sure you reload. (ctrl + shift + p) and type "reload" and a reload option in vscode should appear. Now if there are any style issues (IFRT,EIFB,IFRC), they will be highlighted in yellow. Click the lamp for a quickfix.
+
+## Examples
+If you wish to see examples, simply open vscode and click file in the top right corner. Click open folder and navigate to the folder "testfiles" in the project. Once it loads, all the files in this folder should contain one of the issues detected by this tool.
+
+## Testing
+
+1. Testing is done by typing either ./gradlew test or "gradlew test" depending on your operative System. This will run the check on a file called allTests.java and make sure the generated warnings correspond to the generated warning that were checked manually in advance for the java code located in that file.
 
 
+## Requirements
 
-# Thoughts/Todo:
+* Java 11
+* npm
+* vsce
 
-* Move utility code for an ast node into its own ASTJragFile? (we decide later)
-* Is there a way to implement automated tests, somehow check the values given by the analyser for a given source file? (simply validate warnings manually and make test that checks hardcoded values. If they change, something is wrong. (very primitive automated testing)
-* Change the way the creation of a warning works. Does NOT make sense to generate a new position in the warning class, instead a Position should be provided as we have more information in the analysis. This will be better than the current fix (creating a new Warning method for each new improvement implementation). Approved by IDRISS, RESOLVED!!!
-* It seems like Magpiebridge creates an analyze function which some vscode calls when an action happens and in that call provides the files which are supposed to be changed. Not sure how to fix the load whole project issue? OUT OF SCOPE
-* EIFB prettyprint issue, how to solve? OUT OF SCOPE
-* Comment saver (Compilation unit has access to filepath, use regexes to find comments and prepend them before prettyprint) FINISHED!
-* For each loop, start implementing.
+## Credits
 
-# WEEK3
 
-* FIX AUTOMATED TEST
-* Andreas: Fix his shit
-* Additions to report
-
-# WEEK 4
-* Complete automated tests (Proves to be very difficult).
-* Evaluation, Idriss will ask Görel for repositories in order to evaluate our program (Solved)
-* Create Script for iterating through repositories.
-* Show portability for our implementation by collaboration with Johannes and his group.
-* Create release with alpha tag, give credit to magpiebridge, Idriss etc.
+## License
+This repository is covered by the license BSD 2-clause, see file LICENSE.
