@@ -19,3 +19,10 @@ Project in Compilers
 * FIX AUTOMATED TEST
 * Andreas: Fix his shit
 * Additions to report
+
+# WEEK 4
+* Complete automated tests (Proves to be very difficult).
+* Evaluation, Idriss will ask Görel for repositories in order to evaluate our program (Solved)
+* Create Script for iterating through repositories.
+* Show portability for our implementation by collaboration with Johannes and his group.
+* Create release with alpha tag, give credit to magpiebridge, Idriss etc.
