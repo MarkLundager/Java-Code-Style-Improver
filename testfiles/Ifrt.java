@@ -16,7 +16,7 @@ public class Ifrt {
     }
 
     public boolean ifrtReversed(int y){
-        if(x>/*dafduq*/y){//comment
+        if(x>/*sa*/y){//comment
             return false;
         }
         return/**/ true; //comment

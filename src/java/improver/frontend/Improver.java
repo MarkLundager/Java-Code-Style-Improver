@@ -33,66 +33,67 @@ import magpiebridge.core.AnalysisResult;
 import org.improver.magpiebridge.analysis.CodeAnalysis;
 import java.net.URL;
 
+public class Improver extends Frontend {
+  public static Object CodeProber_root_node;
+  public static ArrayList<String> temp = new ArrayList();
+  private Collection<String> vscodeArgs;
+  private static Improver improver;
+  private static MagpieServer magpiebridgeServer;
+  private static ImproverServer serverAnalysis = new ImproverServer();
 
-public class Improver extends Frontend{
-    public static Object CodeProber_root_node;
-    public static ArrayList<String> temp = new ArrayList();
-    private Collection<String> vscodeArgs;
-    private static Improver improver;
-    private static MagpieServer magpiebridgeServer; 
-    private static ImproverServer serverAnalysis =
-    new ImproverServer();
+  public static void main(String[] args) {
+    if (args[0].equals("-vscode")) {
+      Improver improver = new Improver();
+      improver.run(args);
+      CodeProber_root_node = improver.getEntryPoint();
+      createServer().launchOnStdio();
+    } else {
+      
+      String cpFlag = "-classpath";
+      String classpath = "/home/mark/.gradle/caches/modules-2/files-2.1/net.sf.beaver/beaver-rt/0.9.11/1c37723904832ced60ed3c3f752362e5b38b4b64/beaver-rt-0.9.11.jar";
+      marksfilefindingfunction(args[0]);
+      Improver improver = new Improver();
+      ArrayList argsArray = new ArrayList();
+      argsArray.add("-nowarn");
+      argsArray.addAll(temp);
+      argsArray.add(cpFlag);
+      argsArray.add(classpath);
 
-
-    public static void main(String[] args){
-      if(args[0].equals("-vscode")){
-        createServer().launchOnStdio();
-      }
-      else{
-        String cpFlag = "-classpath";
-        String classpath = "/home/mark/.gradle/caches/modules-2/files-2.1/net.sf.beaver/beaver-rt/0.9.11/1c37723904832ced60ed3c3f752362e5b38b4b64/beaver-rt-0.9.11.jar";
-        marksfilefindingfunction(args[0]);
-        Improver improver = new Improver();
-        ArrayList argsArray = new ArrayList();
-        argsArray.add("-nowarn");
-        argsArray.addAll(temp);
-        argsArray.add(cpFlag);
-        argsArray.add(classpath);
-
-        improver.run(((String[])argsArray.toArray(new String[argsArray.size()]))); //can be replaced with run() I think.
-        CodeProber_root_node = improver.getEntryPoint();
-      }
+      improver.run(((String[]) argsArray.toArray(new String[argsArray.size()])));
+      CodeProber_root_node = improver.getEntryPoint();
     }
+  }
 
   public MagpieServer getServer() {
     return magpiebridgeServer;
   }
 
+  public Program getEntryPoint() {
+    return program;
+  }
 
-  public Program getEntryPoint() { return program; }
-
-  private static ArrayList<String> marksfilefindingfunction(String path){
+  private static ArrayList<String> marksfilefindingfunction(String path) {
     try {
-        Files.walkFileTree(Paths.get(path), new SimpleFileVisitor<Path>() {
-          @Override
-          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+      Files.walkFileTree(Paths.get(path), new SimpleFileVisitor<Path>() {
+        @Override
+        public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
             throws IOException {
-            if (file.toString().endsWith(".java")) {
-              temp.add(file.toAbsolutePath().toString());
-            }
-            return FileVisitResult.CONTINUE;
+          if (file.toString().endsWith(".java")) {
+            temp.add(file.toAbsolutePath().toString());
           }
-        });
-      } catch (Throwable t) {
-        t.printStackTrace();
-        System.err.println("Error while iterating over the rootPath");
-      }
+          return FileVisitResult.CONTINUE;
+        }
+      });
+    } catch (Throwable t) {
+      t.printStackTrace();
+      System.err.println("Error while iterating over the rootPath");
+    }
     return temp;
   }
 
-  private static MagpieServer createServer() {
+  public static MagpieServer createServer() {
     ServerConfiguration config = new ServerConfiguration();
- 
+
     config.setDoAnalysisBySave(true);
     config.setDoAnalysisByFirstOpen(true);
     config.setDoAnalysisByOpen(true);
@@ -102,16 +103,14 @@ public class Improver extends Frontend{
     String language = "java";
     IProjectService javaProjectService = new JavaProjectService();
     magpiebridgeServer.addProjectService(language, javaProjectService);
-    Either<ServerAnalysis, ToolAnalysis> analysis =
-    Either.forLeft(serverAnalysis);
+    Either<ServerAnalysis, ToolAnalysis> analysis = Either.forLeft(serverAnalysis);
     magpiebridgeServer.addAnalysis(analysis, language);
     return magpiebridgeServer;
   }
 
-
   public void setup(Collection<? extends Module> files, Set<Path> sourcePath,
-                    Set<Path> classPath, Set<Path> libPath,
-                    Optional<Path> rootPath) {
+      Set<Path> classPath, Set<Path> libPath,
+      Optional<Path> rootPath) {
     super.program = new Program();
     vscodeArgs = new LinkedHashSet<String>();
     vscodeArgs.add("-nowarn");
@@ -124,7 +123,7 @@ public class Improver extends Frontend{
 
     for (Module file : files) {
       if (file instanceof SourceFileModule) {
-        SourceFileModule sourceFileModule = (SourceFileModule)file;
+        SourceFileModule sourceFileModule = (SourceFileModule) file;
 
         vscodeArgs.add(sourceFileModule.getURL().getPath());
       }
@@ -136,18 +135,18 @@ public class Improver extends Frontend{
     return improver.run(vscodeArgs.toArray(new String[vscodeArgs.size()]));
   }
 
-    /**
+  /**
    * Run the Java checker.
+   * 
    * @param args command-line arguments
    * @return 0 on success, 1 on error, 2 on configuration error, 3 on system
    */
   public int run(String args[]) {
     return run(args, Program.defaultBytecodeReader(),
-               Program.defaultJavaParser());
+        Program.defaultJavaParser());
   }
 
-  public Collection<AnalysisResult>
-  analyze(SourceFileModule file, URL clientURL, CodeAnalysis analysis) {
+  public Collection<AnalysisResult> analyze(SourceFileModule file, URL clientURL, CodeAnalysis analysis) {
     for (CompilationUnit cu : getInstance().getEntryPoint().getCompilationUnits()) {
       if (cu.getClassSource().sourceName().equals(file.getAbsolutePath())) {
         analysis.doAnalysis(cu, clientURL);
@@ -156,24 +155,23 @@ public class Improver extends Frontend{
     return analysis.getResult();
   }
 
-
   @Override
-  protected void processNoErrors(CompilationUnit cu){
+  protected void processNoErrors(CompilationUnit cu) {
     System.out.println(cu.pathName());
-    for(Warning w: cu.IFRC()){
+    for (Warning w : cu.IFRC()) {
       System.out.println(w.toString());
     }
-    for(Warning w: cu.IFRT()){
+    for (Warning w : cu.IFRT()) {
       System.out.println(w.toString());
     }
-    for(Warning w: cu.EIFB()){
+    for (Warning w : cu.EIFB()) {
       System.out.println(w.toString());
     }
   }
 
   protected String computeClassPath(Set<Path> classPath, Set<Path> srcPath,
-                                    Set<Path> libPath,
-                                    Optional<Path> rootPath) {
+      Set<Path> libPath,
+      Optional<Path> rootPath) {
     StringBuilder sb = new StringBuilder();
 
     for (Path path : classPath) {
@@ -217,7 +215,7 @@ public class Improver extends Frontend{
     return sb.toString();
   }
 
-    public static Improver getInstance() {
+  public static Improver getInstance() {
     if (improver == null) {
       improver = new Improver();
     }

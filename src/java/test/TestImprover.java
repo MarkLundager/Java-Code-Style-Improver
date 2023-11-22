@@ -36,6 +36,7 @@ import org.improver.analysis.utils.Warning;
 import org.junit.Test;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertEquals;
+import java.io.FileWriter;
 
 public class TestImprover{
 
@@ -43,16 +44,41 @@ public class TestImprover{
   }
 
   @Test
-  public void test(){  
-    String [] args = {"testfiles\\allTests.java"};
+  public void test(){
+    StringBuilder sb = new StringBuilder();
+    String fileName = "testOutput.txt";
+    String [] args = {"testfiles/allTests.java"};
     //array of string with one element representing the path to your java file.
     Improver imp = new Improver();
     int exitcode = imp.run(args);
     if(exitcode!=0) {
     //Something went wrong
     }
+    imp.createServer().launchOnStdio();
     Program p = imp.getEntryPoint();
+    CompilationUnit cu = p.getCompilationUnit(0);
 
-    assertEquals("apa", "apa");
+    for(Warning w : cu.IFRC()){
+      sb.append(w.toString() + "\n\n");
+    }
+    for(Warning w : cu.IFRT()){
+      sb.append(w.toString() + "\n\n");
+    }
+    for(Warning w : cu.EIFB()){
+      sb.append(w.toString() + "\n\n");
+    }
+
+    try{
+      File myObj = new File(fileName);
+      myObj.createNewFile();
+      System.out.println("File created: " + myObj.getName());
+      FileWriter myWriter = new FileWriter(fileName);
+      myWriter.write(sb.toString());
+      myWriter.close();
+    }
+
+    catch(Exception e){
+
+    }
   }
 }
