@@ -4,13 +4,16 @@ public class Ifrt {
     public static void main(String[] args) {
         eifb(2);
     }
+
+    
     public boolean eifb(int y){
-        if(x>/*dafuq*/y){
-        }//hold up
+        if(x>/*Comment in middle of expression*/y){
+        }//comment here as well
         else{
-            return/*this is crazzy*/ false;
-        /*chill*/}
+            return/*this is a crazy comment location*/ false;
+        }
     }
+
     public boolean eifb2(int y){
         if(!(x > y)){
             return false;

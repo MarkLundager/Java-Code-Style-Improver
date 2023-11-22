@@ -8,17 +8,16 @@ public class Ifrc {
     }
 
     public boolean ifrc(int y){
-        if(x/*crazy comment 1*/>y/*Comment 2 in the middle*/){
+        if(y>3){
             return true;
-        }//comment 3
-        /* comment4 multilines
-        still comment 4*/
+        }
         else{
             return false;
         }
     }
     public boolean ifrcReversed(int y){
-        if(x>y){
+        boolean mark = true;
+        if(mark){
             return false;
         }
         else{
