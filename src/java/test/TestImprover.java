@@ -47,26 +47,30 @@ public class TestImprover{
   public void test(){
     StringBuilder sb = new StringBuilder();
     String fileName = "testOutput.txt";
-    String [] args = {"testfiles/allTests.java"};
-    //array of string with one element representing the path to your java file.
+    String [] args = {"testfiles\\allTests.java"};//Windows
+    // String [] args = {"testfiles/allTests.java"};//Linux
+
+
     Improver imp = new Improver();
     int exitcode = imp.run(args);
     if(exitcode!=0) {
-    //Something went wrong
+      
     }
     imp.createServer().launchOnStdio();
     Program p = imp.getEntryPoint();
     CompilationUnit cu = p.getCompilationUnit(0);
 
     for(Warning w : cu.IFRC()){
-      sb.append(w.toString() + "\n\n");
+      sb.append(w.toString());
     }
     for(Warning w : cu.IFRT()){
-      sb.append(w.toString() + "\n\n");
+      sb.append(w.toString());
     }
     for(Warning w : cu.EIFB()){
-      sb.append(w.toString() + "\n\n");
+      sb.append(w.toString());
     }
+
+    assertEquals(sb.toString(),"IFRC - testfiles\\allTests.java:15,7 - Unnecessary IF statement when returning the value of the condition.IFRC - testfiles\\allTests.java:24,7 - Unnecessary IF statement when returning the value of the condition.IFRT - testfiles\\allTests.java:32,7 - IFRTIFRT - testfiles\\allTests.java:41,7 - IFRTIFRC - testfiles\\allTests.java:8,7 - EIFBWarning");
 
     try{
       File myObj = new File(fileName);

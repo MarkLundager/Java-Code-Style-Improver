@@ -61,7 +61,8 @@ aspect STREQ {
       return res;
     } catch (Throwable t) {
     }
-    return new Pos(0, 0, 0, 0, getCompilationUnit().pathName());
+    Position position = new Pos(0, 0, 0, 0, getCompilationUnit().pathName());
+    return position;
   }
 
   
@@ -73,6 +74,7 @@ aspect STREQ {
       return res;
     } catch (Throwable t) {
     }
-    return new Pos(0, 0, 0, 0, getCompilationUnit().pathName());
+    Position position = new Pos(0, 0, 0, 0, getCompilationUnit().pathName());
+    return position;
   }
 }

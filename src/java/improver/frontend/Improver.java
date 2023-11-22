@@ -48,7 +48,7 @@ public class Improver extends Frontend {
       CodeProber_root_node = improver.getEntryPoint();
       createServer().launchOnStdio();
     } else {
-      
+      createServer().launchOnStdio(); //has to be in the beginning for both to work
       String cpFlag = "-classpath";
       String classpath = "/home/mark/.gradle/caches/modules-2/files-2.1/net.sf.beaver/beaver-rt/0.9.11/1c37723904832ced60ed3c3f752362e5b38b4b64/beaver-rt-0.9.11.jar";
       marksfilefindingfunction(args[0]);
@@ -61,6 +61,7 @@ public class Improver extends Frontend {
 
       improver.run(((String[]) argsArray.toArray(new String[argsArray.size()])));
       CodeProber_root_node = improver.getEntryPoint();
+
     }
   }
 

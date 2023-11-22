@@ -14,9 +14,6 @@ public class Ifrt {
         }
     }
 
-
-
-
     public boolean eifb2(int y){
         if(!(x > y)){
             return false;

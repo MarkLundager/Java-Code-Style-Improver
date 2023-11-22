@@ -1,0 +1,1 @@
+IFRC - testfiles\allTests.java:15,7 - Unnecessary IF statement when returning the value of the condition.IFRC - testfiles\allTests.java:24,7 - Unnecessary IF statement when returning the value of the condition.IFRT - testfiles\allTests.java:32,7 - IFRTIFRT - testfiles\allTests.java:41,7 - IFRTIFRC - testfiles\allTests.java:8,7 - EIFBWarning
