@@ -2,7 +2,7 @@ package org.improver.frontend;
 
 import org.extendj.ast.Frontend;
 
-
+import org.improver.analysis.utils.Warning;
 import org.improver.magpiebridge.ImproverServer;
 import com.ibm.wala.classLoader.Module;
 import com.ibm.wala.classLoader.SourceFileModule;
@@ -36,18 +36,32 @@ import java.net.URL;
 
 public class Improver extends Frontend{
     public static Object CodeProber_root_node;
+    public static ArrayList<String> temp = new ArrayList();
     private Collection<String> vscodeArgs;
     private static Improver improver;
     private static MagpieServer magpiebridgeServer; 
     private static ImproverServer serverAnalysis =
-      new ImproverServer();
+    new ImproverServer();
 
 
     public static void main(String[] args){
-        Improver improver = new Improver();
-        improver.run(args); //can be replaced with run() I think.
-        CodeProber_root_node = improver.getEntryPoint();
+      if(args[0].equals("-vscode")){
         createServer().launchOnStdio();
+      }
+      else{
+        String cpFlag = "-classpath";
+        String classpath = "/home/mark/.gradle/caches/modules-2/files-2.1/net.sf.beaver/beaver-rt/0.9.11/1c37723904832ced60ed3c3f752362e5b38b4b64/beaver-rt-0.9.11.jar";
+        marksfilefindingfunction(args[0]);
+        Improver improver = new Improver();
+        ArrayList argsArray = new ArrayList();
+        argsArray.add("-nowarn");
+        argsArray.addAll(temp);
+        argsArray.add(cpFlag);
+        argsArray.add(classpath);
+
+        improver.run(((String[])argsArray.toArray(new String[argsArray.size()]))); //can be replaced with run() I think.
+        CodeProber_root_node = improver.getEntryPoint();
+      }
     }
 
   public MagpieServer getServer() {
@@ -57,7 +71,24 @@ public class Improver extends Frontend{
 
   public Program getEntryPoint() { return program; }
 
-
+  private static ArrayList<String> marksfilefindingfunction(String path){
+    try {
+        Files.walkFileTree(Paths.get(path), new SimpleFileVisitor<Path>() {
+          @Override
+          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+            throws IOException {
+            if (file.toString().endsWith(".java")) {
+              temp.add(file.toAbsolutePath().toString());
+            }
+            return FileVisitResult.CONTINUE;
+          }
+        });
+      } catch (Throwable t) {
+        t.printStackTrace();
+        System.err.println("Error while iterating over the rootPath");
+      }
+    return temp;
+  }
 
   private static MagpieServer createServer() {
     ServerConfiguration config = new ServerConfiguration();
@@ -123,6 +154,21 @@ public class Improver extends Frontend{
       }
     }
     return analysis.getResult();
+  }
+
+
+  @Override
+  protected void processNoErrors(CompilationUnit cu){
+    System.out.println(cu.pathName());
+    for(Warning w: cu.IFRC()){
+      System.out.println(w.toString());
+    }
+    for(Warning w: cu.IFRT()){
+      System.out.println(w.toString());
+    }
+    for(Warning w: cu.EIFB()){
+      System.out.println(w.toString());
+    }
   }
 
   protected String computeClassPath(Set<Path> classPath, Set<Path> srcPath,

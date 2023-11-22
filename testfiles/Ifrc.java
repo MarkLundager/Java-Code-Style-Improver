@@ -8,21 +8,21 @@ public class Ifrc {
     }
 
     public boolean ifrc(int y){
-        if(x/*crazy comment 1*/>y/*Comment 2 in the middle*/){
-            return true;
-        }//comment 3
-        /* comment4 multilines
+        /*Auto Generated comments*/
+/*crazy comment 1*/
+/*Comment 2 in the middle*/
+//comment 3
+/* comment4 multilines
         still comment 4*/
-        else{
-            return false;
-        }
+return x > y;
     }
     public boolean ifrcReversed(int y){
-        if(x>y){
-            return false;
+        boolean mark = false;
+        if(mark){
+            return true;
         }
         else{
-            return true;
+            return false;
         }
     }
 }

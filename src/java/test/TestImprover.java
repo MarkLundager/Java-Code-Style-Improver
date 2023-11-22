@@ -43,8 +43,8 @@ public class TestImprover{
   }
 
   @Test
-  void test(){  
-    String [] args = {"/mnt/c/Users/Mark_/Documents/EDAN70/testfiles/allTests.java"};
+  public void test(){  
+    String [] args = {"testfiles\\allTests.java"};
     //array of string with one element representing the path to your java file.
     Improver imp = new Improver();
     int exitcode = imp.run(args);
@@ -52,5 +52,7 @@ public class TestImprover{
     //Something went wrong
     }
     Program p = imp.getEntryPoint();
+
+    assertEquals("apa", "apa");
   }
 }
