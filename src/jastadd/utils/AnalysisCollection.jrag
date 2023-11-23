@@ -44,7 +44,13 @@ aspect Analysis {
       root CompilationUnit;
   coll TreeSet<Warning> CompilationUnit.EIFB()[new TreeSet<Warning>()] with add
       root CompilationUnit;
-  coll TreeSet<Warning> CompilationUnit.FOREACH()[new TreeSet<Warning>()] with add
+  coll TreeSet<Warning> CompilationUnit.LATSA()[new TreeSet<Warning>()] with add
+      root CompilationUnit;
+  coll TreeSet<Warning> CompilationUnit.LMTSM()[new TreeSet<Warning>()] with add
+      root CompilationUnit;
+  coll TreeSet<Warning> CompilationUnit.LDTSD()[new TreeSet<Warning>()] with add
+      root CompilationUnit;
+  coll TreeSet<Warning> CompilationUnit.LSTSS()[new TreeSet<Warning>()] with add
       root CompilationUnit;
 
 
