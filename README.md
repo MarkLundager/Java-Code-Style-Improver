@@ -26,8 +26,17 @@ If you wish to see examples, simply open vscode and click file in the top right 
 * Java 11
 * npm
 * vsce
+* Linux OS
 
 ## Credits
+
+The following files in the repository come from:
+
+- extendj/*: Header files from the FMI2 standard, licensed under a Modified BSD License, https://extendj.org/
+- The whole project structure and a substantial amount of skeletoncode: Idriss Riouak
+- Magpiebridge integration: https://github.com/MagpieBridge/MagpieBridge
+
+  
 
 
 ## License
