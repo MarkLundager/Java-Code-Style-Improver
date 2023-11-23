@@ -1,4 +1,4 @@
-public class Ifrt {       
+public class allTests {       
     int x = 4;
 
     public static void main(String[] args) {

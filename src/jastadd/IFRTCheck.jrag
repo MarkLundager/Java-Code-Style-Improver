@@ -72,8 +72,7 @@ aspect IFRT {
     else{
       return Pair.make(getIFRTPosition(), hasComment(getIFRTPosition()) + "return " + getCondition().prettyPrint() + ";");
     }
-    
-}
+  }
   syn Pair<Position, String> IfStmt.getIFRTReversedRepair(){
     if(hasComment(getIFRTPosition()).equals("")){
       return Pair.make(getIFRTPosition(), "return !(" + getCondition().prettyPrint() + ");");
