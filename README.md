@@ -6,19 +6,18 @@
 
 2. type git submodule update --init --recursive to make sure you have extendj IDRISS WE NEED HELP HERE.
 
-3. build the project, i.e. type "./gradlew clean build" on Linux and "gradlew clean build" on windows in the terminal. Please note you need to
-   be located in the root of the project.
+3. build the project, i.e. type "./gradlew clean build".
 
-4. To install the vscode extension (only works on linux) type ./generate_vsce.sh in the terminal. Make sure you have npm and vsce installed!
+4. To install the vscode extension type ./generate_vsce.sh in the terminal. Make sure you have npm and vsce installed and that you are located in root of the project where the script is located!
 
-5. Now reload vscode and open a java project. If vscode was already open, make sure you reload. (ctrl + shift + p) and type "reload" and a reload option in vscode should appear. Now if there are any style issues (IFRT,EIFB,IFRC), they will be highlighted in yellow. Click the lamp for a quickfix.
+5. Now reload vscode and open a java project. If vscode was already open, make sure you reload. (ctrl + shift + p) and type "reload" and a reload option in vscode should appear. Now if there are any style issues (IFRT,EIFB,IFRC,etc), they will be highlighted in yellow. Click the yellow lightbulb for a quickfix.
 
 ## Examples
 If you wish to see examples, simply open vscode and click file in the top right corner. Click open folder and navigate to the folder "testfiles" in the project. Once it loads, all the files in this folder should contain one of the issues detected by this tool.
 
 ## Testing
 
-1. Testing is done by typing either ./gradlew test or "gradlew test" depending on your operative System. This will run the check on a file called allTests.java and make sure the generated warnings correspond to the generated warning that were checked manually in advance for the java code located in that file.
+1. Testing is done by typing either ./gradlew test . This will run the check on a file called allTests.java and make sure the generated warnings correspond to the generated warning that were checked manually in advance for the java code located in that file.
 
 
 ## Requirements
