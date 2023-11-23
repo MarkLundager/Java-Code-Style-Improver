@@ -17,7 +17,7 @@ If you wish to see examples, simply open vscode and click file in the top right 
 
 ## Testing
 
-1. Testing is done by typing either ./gradlew test . This will run the check on a file called allTests.java and make sure the generated warnings correspond to the generated warning that were checked manually in advance for the java code located in that file.
+1. Testing is performed by typing ./gradlew test . This will run the check on a file called allTests.java and make sure the generated warnings correspond to the generated warning that were checked manually in advance for the java code located in that file.
 
 
 ## Requirements
