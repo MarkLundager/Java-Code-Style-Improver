@@ -26,6 +26,7 @@ If you wish to see examples, simply open vscode and click file in the top right 
 * npm
 * vsce
 * Linux OS
+* Gradle
 
 ## Credits
 
