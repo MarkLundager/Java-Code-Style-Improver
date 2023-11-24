@@ -6,8 +6,10 @@ public class LdtsdTest {
     }
     public boolean ldtsdTest(int y){
         int mark = 0;
+        int apa = 0;
         mark = 4 / mark;
         mark = mark / 4;
+        mark = mark / apa;
     }
 
 }

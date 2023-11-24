@@ -31,3 +31,6 @@ meaning that an assignment happens before.
 
 
 Codeprober, general
+
+
+Struggles with implementing things like mark = mark + 5 due to different ASTNODE hierarchies, one would need to define a lot of subattributes, gets complex very quickly.
