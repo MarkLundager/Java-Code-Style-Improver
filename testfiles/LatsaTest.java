@@ -6,9 +6,11 @@ public class LatsaTest {
     }
     public boolean latsaTest(int y){
         int mark = 0;
+        int apa = 0;
         mark = 4 + mark;
         mark /*comment*/= mark + 4;
-    }
+        mark = mark + apa;
+    }   
 
 }
 

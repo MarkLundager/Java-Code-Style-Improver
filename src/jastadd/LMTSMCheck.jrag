@@ -36,12 +36,12 @@ aspect LMTSM {
 
 
   syn int MulExpr.intAndVarUse(String id) {
-    if(getLeftOperand().isVarAccess() && getRightOperand().isIntLit()){
+    if(getLeftOperand().isVarAccess() && getRightOperand().isIntLit()|| getLeftOperand().isVarAccess() && getRightOperand().isVarAccess() ){
         if(((VarAccess)getLeftOperand()).getID().equals(id)){
           return 1;
         }
     }
-    else if (getRightOperand().isVarAccess() && getLeftOperand().isIntLit()){
+    else if (getRightOperand().isVarAccess() && getLeftOperand().isIntLit()|| getLeftOperand().isVarAccess() && getRightOperand().isVarAccess() ){
       if(((VarAccess)getRightOperand()).getID().equals(id)){
         return 2;
       }
