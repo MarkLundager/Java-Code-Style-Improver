@@ -13,7 +13,6 @@ Project in Compilers
 * EIFB prettyprint issue, how to solve? OUT OF SCOPE
 * Comment saver (Compilation unit has access to filepath, use regexes to find comments and prepend them before prettyprint) FINISHED!
 * For each loop, start implementing.
-
 # WEEK3
 
 * FIX AUTOMATED TEST
@@ -26,3 +25,6 @@ Project in Compilers
 * Create Script for iterating through repositories.
 * Show portability for our implementation by collaboration with Johannes and his group.
 * Create release with alpha tag, give credit to magpiebridge, Idriss etc.
+# WEEK 5
+* Add references to codeprober, extendJ, PMD, checkstyle, SonarCube, JavAST. How to cite a website? IDRISS HELP
+* 
