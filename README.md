@@ -4,7 +4,7 @@
 
 1. Clone to repository locally.
 
-2. type git submodule update --init --recursive to make sure you have extendj IDRISS WE NEED HELP HERE.
+2. type git submodule update --init --recursive to make sure you have extendj as a submodule in the repository which this tool relies on.
 
 3. build the project, i.e. type "./gradlew clean build".
 
