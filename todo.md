@@ -27,4 +27,9 @@ Project in Compilers
 * Create release with alpha tag, give credit to magpiebridge, Idriss etc.
 # WEEK 5
 * Add references to codeprober, extendJ, PMD, checkstyle, SonarCube, JavAST. How to cite a website? IDRISS HELP
-* 
+* Make filesearcher write to file instead of print
+* Start on presentation
+* wait for evaluation from Idriss
+* wait for AlphaRelease feedback.
+* Microsoft marketplace.
+
