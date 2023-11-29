@@ -11,6 +11,5 @@ public class LatsaTest {
         mark /*comment*/= mark + 4;
         mark = mark + apa;
     }   
-
 }
 

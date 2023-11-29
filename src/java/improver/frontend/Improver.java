@@ -1,7 +1,7 @@
 package org.improver.frontend;
 
 import org.extendj.ast.Frontend;
-
+import java.io.FileWriter;
 import org.improver.analysis.utils.Warning;
 import org.improver.magpiebridge.ImproverServer;
 import com.ibm.wala.classLoader.Module;
@@ -158,15 +158,54 @@ public class Improver extends Frontend {
 
   @Override
   protected void processNoErrors(CompilationUnit cu) {
-    System.out.println(cu.pathName());
+    StringBuilder sb = new StringBuilder();
+    sb.append("---------------" +cu.pathName()+"---------------" + "\n");
     for (Warning w : cu.IFRC()) {
-      System.out.println(w.toString());
+      sb.append(w.toString() + "\n");
     }
     for (Warning w : cu.IFRT()) {
-      System.out.println(w.toString());
+      sb.append(w.toString() + "\n");
     }
     for (Warning w : cu.EIFB()) {
-      System.out.println(w.toString());
+      sb.append(w.toString() + "\n");
+    }
+    for (Warning w : cu.LATSA()) {
+      sb.append(w.toString() + "\n");
+    }
+    for (Warning w : cu.LDTSD()) {
+      sb.append(w.toString() + "\n");
+    }
+    for (Warning w : cu.LMTSM()) {
+      sb.append(w.toString() + "\n");
+    }
+    for (Warning w : cu.LSTSS()) {
+      sb.append(w.toString() + "\n");
+    }
+    createFile("Result.txt");
+    writeToFile("Result.txt", sb.toString() +"\n\n");
+  }
+
+
+  public static void createFile(String fileName) {
+    try {
+        File myObj = new File(fileName);
+        if (myObj.createNewFile()) {
+            System.out.println("File created: " + myObj.getName());
+        } else {
+
+        }
+    } catch (IOException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
+    }
+  }
+  public static void writeToFile(String fileName, String string) {
+    try {
+      FileWriter myWriter = new FileWriter(fileName,true);
+      myWriter.write(string);
+      myWriter.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 
