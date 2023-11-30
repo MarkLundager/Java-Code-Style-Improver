@@ -3,7 +3,7 @@
 
 ## Examples
 
-IF RETURN CONDITION (IFRC) (Also works with inversed return values) Provided by Andrew Luxton-Reilly and Gerard Rowe
+IF RETURN CONDITION (IFRC) (Also works with inversed return values). Provided by Andrew Luxton-Reilly and Gerard Rowe
 ```
 
 if(y>3){                                               |
@@ -14,7 +14,7 @@ else{                                                  |
 }                                                      |
 ```
 
-IF RETURN TRUE (IFRT) (Also works with inversed return values) Andrew Luxton-Reilly and Gerard Rowe
+IF RETURN TRUE (IFRT) (Also works with inversed return values). Provided by Andrew Luxton-Reilly and Gerard Rowe
 ```
 
                                                        |         /*Auto Generated comments*
@@ -25,7 +25,7 @@ asdsa*/y){//apa                                        |         asdsa*/
 }//apa                                                 |//apa
 return false; //comment                                |return x > y; //comment
 ```
- EMPTY IF BODY (EIFB) (Also works with inversed condition) Andrew Luxton-Reilly and Gerard Rowe
+ EMPTY IF BODY (EIFB) (Also works with inversed condition). Provided by Andrew Luxton-Reilly and Gerard Rowe
 ```
 if(x>/*Comment in middle of expression*/y){            |         /*Auto Generated comments*/
 }//comment here as well                                |/*Comment in middle of expression*/
