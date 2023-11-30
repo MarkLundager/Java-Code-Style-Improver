@@ -62,12 +62,11 @@ mark = mark / apa;                                     |       mark /= apa;
 ## Building && running
 
 1. Clone to repository locally. This can be done by navigating to the desired location in your terminal. Once you are there type
-
-if you have SSH key:
+   if you have SSH key:
    ```
    git clone git@github.com:Markie06/EDAN70.git
    ```
-if you wish to clone with your github credentials:
+   if you wish to clone with your github credentials:
    ```
    git clone https://github.com/Markie06/EDAN70.git
    ```
