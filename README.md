@@ -3,7 +3,7 @@
 
 ## Examples
 
-IF RETURN CONDITION (IFRC) (Also works with inversed return values)
+IF RETURN CONDITION (IFRC) (Also works with inversed return values) Provided by Andrew Luxton-Reilly and Gerard Rowe
 ```
 
 if(y>3){                                               |
@@ -14,7 +14,7 @@ else{                                                  |
 }                                                      |
 ```
 
-IF RETURN TRUE (IFRT) (Also works with inversed return values)
+IF RETURN TRUE (IFRT) (Also works with inversed return values) Andrew Luxton-Reilly and Gerard Rowe
 ```
 
                                                        |         /*Auto Generated comments*
@@ -25,7 +25,7 @@ asdsa*/y){//apa                                        |         asdsa*/
 }//apa                                                 |//apa
 return false; //comment                                |return x > y; //comment
 ```
- EMPTY IF BODY (EIFB) (Also works with inversed condition)
+ EMPTY IF BODY (EIFB) (Also works with inversed condition) Andrew Luxton-Reilly and Gerard Rowe
 ```
 if(x>/*Comment in middle of expression*/y){            |         /*Auto Generated comments*/
 }//comment here as well                                |/*Comment in middle of expression*/
@@ -100,11 +100,11 @@ Replace root_path_of_folder_to_perform_check_on with the actual path to your fol
 
 ## Requirements
 
-* Java 11
-* npm
-* vsce
-* Linux OS
-* Gradle
+* Java 11. (tested with Java 11 v..1384712348.9) 
+* npm      (tested with version 10.2.0)
+* vsce     (tested with version 2.15.0)
+* Linux OS (tested with WSL with the Ubuntu 20.04.6 LTS distribution for Windows) (Linux 5.15.133.1-microsoft-standard-WSL2 amd64)
+* Gradle   (tested with version 4.4.1)
 
 ## Credits
 
@@ -113,6 +113,7 @@ The following files in the repository come from:
 - extendj/*: Header files from the FMI2 standard, licensed under a Modified BSD License, https://extendj.org/
 - The whole project structure and a substantial amount of skeletoncode: Idriss Riouak
 - Magpiebridge integration: https://github.com/MagpieBridge/MagpieBridge
+- The IFRC, IFRT and EIFB style issues introduced by Andrew Luxton-Reilly and Gerard Rowe in their paper "Understanding semantic style by analysing student code" DOI: 10.1145/3160489.3160500
 
   
 
