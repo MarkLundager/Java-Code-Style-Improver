@@ -85,7 +85,7 @@ mark = mark / apa;                                     |       mark /= apa;
 
 5. Now you should have the extension available in VSCode. If VSCode was already open make sure you reload the window (ctrl + shift + p), in the search bar that appears type reload and the suggestion to reload the window should appear. Otherwise simply just open VSCode and open a project to see if it contains any of the issues listed in the description of the tool.
 
-##Checking a directory for errors:
+## Checking a directory for errors:
 
 If you wish to check a directory for issues, navigate to the root of the repository in the terminal and type:
    ```
