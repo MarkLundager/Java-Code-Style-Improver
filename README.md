@@ -1,3 +1,17 @@
+# Description (Change title to name of the tool)
+(Insert name of tool) is a tool developed to analyze Java Code and find verbose code to then give suggestions of improved code without changing the behaviour. It is an extension of the ExtendJ compiler and with the help of Magpiebridge it functions as an extension in the Visual Studio code app. The checks that are performed are very strict to ensure no false positives (which could alter the behaviour of the code). However, consenquently there will be multiple false negatives. Below you can find examples of all the checks performed.
+
+
+```
+                             IF RETURN CONDITION (IFRC)
+        if(y>3){                       |
+            return true;               |
+        }                              |            return y > 3;
+        else{                          |
+            return false;              |
+        }                              |
+```
+  
 # How to build, test and run.
 
 ## Building && running
