@@ -103,7 +103,7 @@ This will run the check on a file called allTests.java and make sure the generat
 
 ## Requirements
 
-* Java 11. (tested with Java 11 v..1384712348.9) 
+* Java 11. (tested with Java 11 v11.0.20.1) 
 * npm      (tested with version 10.2.0)
 * vsce     (tested with version 2.15.0)
 * Linux OS (tested with WSL with the Ubuntu 20.04.6 LTS distribution for Windows) (Linux 5.15.133.1-microsoft-standard-WSL2 amd64)
