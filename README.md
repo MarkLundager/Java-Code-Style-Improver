@@ -1,5 +1,5 @@
 # Description (Change title to name of the tool)
-(Insert name of tool) is a tool developed to analyze Java Code and find verbose code to then give suggestions of improved code without changing the behaviour. It is an extension of the ExtendJ compiler and with the help of Magpiebridge it functions as an extension in the Visual Studio code app. The checks that are performed are very strict to ensure no false positives (which could alter the behaviour of the code). However, consenquently there will be multiple false negatives. Below you can find examples of all the checks performed. The left side shows the code before it is improved while the right side displays the code post-improvement. Note that the tool is not capable of handling indentation within blocks. Finally, comments are not removed but they will be inserted before the correction.
+(Insert name of tool) is a tool developed to analyze Java Code and find verbose code to then give suggestions of improved code without changing the behaviour. It is an extension of the ExtendJ compiler and with the help of Magpiebridge it functions as an extension in the Visual Studio code app. The checks that are performed are very strict to ensure no false positives (which could alter the behaviour of the code). However, consenquently there will be multiple false negatives. Below you can find examples of all the checks performed. The left side shows the code before it is improved while the right side displays the code post-improvement. Note that the tool is not capable of handling indentation within blocks. Finally, comments are not removed but they will be inserted before the correction in order.
 
 
 IF RETURN CONDITION (IFRC) (Also works with inversed return values)
@@ -26,14 +26,36 @@ return false; //comment                                |return x > y; //comment
 ```
  EMPTY IF BODY (EIFB) (Also works with inversed condition)
 ```
-if(x>/*Comment in middle of expression*/y){
-}//comment here as well
-else{
-    return/*this is a crazy comment location*/ false;
-}
+if(x>/*Comment in middle of expression*/y){            |         /*Auto Generated comments*/
+}//comment here as well                                |/*Comment in middle of expression*/
+else{                                                  |//comment here as well
+    return/*this is a crazy comment location*/ false;  |/*this is a crazy comment location*/
+}                                                      |if(!(x > y)){
+                                                       |            return false;
+                                                       | }
+```
+Long Addition To Short Addition (LATSA) (Works with integer literals as well)
+
+```                              
+mark = mark + apa;                                     |       mark += apa;
+```
+Long Subtraction To Short Subtraction (LSTSS) (Works with integer literals as well)       
+
+```                              
+mark = mark - apa;                                     |       mark -= apa;
 ```
 
+Long Multiplication To Short Multiplication (LMTSM) (Works with integer literals as well)       
 
+```                              
+mark = mark * apa;                                     |       mark *= apa;
+```
+
+Long Division To Short Division (LDTSD) (Works with integer literals as well)       
+
+```                              
+mark = mark / apa;                                     |       mark /= apa;
+```
   
 # How to build, test and run.
 
