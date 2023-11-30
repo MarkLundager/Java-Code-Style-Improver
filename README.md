@@ -1,6 +1,7 @@
 # Description (Change title to name of the tool)
 (Insert name of tool) is a tool developed to analyze Java Code and find verbose code to then give suggestions of improved code without changing the behaviour. It is an extension of the ExtendJ compiler and with the help of Magpiebridge it functions as an extension in the Visual Studio code app. The checks that are performed are very strict to ensure no false positives (which could alter the behaviour of the code). Consenquently, there will be multiple false negatives. Below you can find examples of all the checks performed. The left side shows the code before it is improved while the right side displays the code post-improvement. Note that the tool is not capable of handling indentation within blocks. Finally, comments are not removed but they will be inserted before the correction in order.
 
+## Examples
 
 IF RETURN CONDITION (IFRC) (Also works with inversed return values)
 ```
@@ -83,10 +84,6 @@ mark = mark / apa;                                     |       mark /= apa;
    ```
 
 5. Now you should have the extension available in VSCode. If VSCode was already open make sure you reload the window (ctrl + shift + p), in the search bar that appears type reload and the suggestion to reload the window should appear. Otherwise simply just open VSCode and open a project to see if it contains any of the issues listed in the description of the tool.
-
-
-## Examples
-If you wish to see examples, simply open vscode and click file in the top right corner. Click open folder and navigate to the folder "testfiles" in the project. Once it loads, all the files in this folder should contain one of the issues detected by this tool.
 
 ##Checking a directory for errors:
 
