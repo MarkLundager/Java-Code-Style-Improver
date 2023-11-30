@@ -62,6 +62,7 @@ mark = mark / apa;                                     |       mark /= apa;
 ## Building && running
 
 1. Clone to repository locally. This can be done by navigating to the desired location in your terminal. Once you are there type
+
    if you have SSH key:
    ```
    git clone git@github.com:Markie06/EDAN70.git
@@ -71,17 +72,17 @@ mark = mark / apa;                                     |       mark /= apa;
    git clone https://github.com/Markie06/EDAN70.git
    ```
 
-2. In order for the tool to work, a snapshot of ExtendJ is required. Hence, we want ExtendJ as a submodule in our repository. This can be done by  the following commands:
+3. In order for the tool to work, a snapshot of ExtendJ is required. Hence, we want ExtendJ as a submodule in our repository. This can be done by  the following commands:
    ```
    cd EDAN70
    git submodule update --init --recursive
    ```
-3. Then to build the project you should run the following (make sure that you are in the root of the repository):
+4. Then to build the project you should run the following (make sure that you are in the root of the repository):
    ```
    ./gradlew clean build vsce
    ```
 
-4. Now you should have the extension available in VSCode. If VSCode was already open make sure you reload the window (ctrl + shift + p), in the search bar that appears type reload and the suggestion to reload the window should appear. Otherwise simply just open VSCode and open a project to see if it contains any of the issues listed in the description of the tool.
+5. Now you should have the extension available in VSCode. If VSCode was already open make sure you reload the window (ctrl + shift + p), in the search bar that appears type reload and the suggestion to reload the window should appear. Otherwise simply just open VSCode and open a project to see if it contains any of the issues listed in the description of the tool.
 
 
 ## Examples
