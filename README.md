@@ -94,8 +94,11 @@ If you wish to check a directory for issues, navigate to the root of the reposit
 Replace root_path_of_folder_to_perform_check_on with the actual path to your folder. This will produce a Result.txt file containing information regarding what files were scanned and if they contained any of the errors.
 
 ## Testing
-
-1. Testing is performed by typing ./gradlew test . This will run the check on a file called allTests.java and make sure the generated warnings correspond to the generated warning that were checked manually in advance for the java code located in that file.
+Testing is performed by typing the following command in the terminal (you have to be located in the root of the repository)
+```
+   ./gradlew test
+```
+This will run the check on a file called allTests.java and make sure the generated warnings correspond to the generated warning that were checked manually in advance for the java code located in that file.
 
 
 ## Requirements
