@@ -33,3 +33,10 @@ Project in Compilers
 * wait for AlphaRelease feedback.
 * Microsoft marketplace.
 
+# WEEK 6
+* Dont discuss codeProber in report.
+* Add a table with the jrag files and their respective line of code count.
+* Pearce paper about complexity of sideeffect, add reference when removing "at first..."
+* Explain the code that was used in the evaluation, what did it contain / the purpose.
+* stop having verbose subsections
+* Include portability with other "GLUES".This would be its own section. Between our approach and evaluation. Would be fun to reference.
