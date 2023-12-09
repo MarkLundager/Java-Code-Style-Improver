@@ -80,4 +80,6 @@ aspect CommentChecker {
     return "";
   }
 }
+
+syn String ASTNode.lsp_hover() = "APa";
 }

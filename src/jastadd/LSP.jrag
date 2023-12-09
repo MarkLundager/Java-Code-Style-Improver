@@ -1,0 +1,87 @@
+aspect LSPDiagnostics {
+    public class LSPTextEdit {
+      private int startLine, startCol, endLine, endCol;
+      private String replacement;
+  
+      public LSPTextEdit(int startLine, int startCol, int endLine, int endCol, String replacement) {
+        this.startLine = startLine;
+        this.startCol = startCol;
+        this.endLine = endLine;
+        this.endCol = endCol;
+        this.replacement = replacement;
+      }
+  
+      public int startLine() { return startLine; }
+      public int startCol() { return startCol; }
+      public int endLine() { return endLine; }
+      public int endCol() { return endCol; }
+      public String replacement() { return replacement; }    
+    }
+  
+    public class LSPDiagnostic implements Comparable<LSPDiagnostic> {
+      public int compareTo(LSPDiagnostic other) {
+              if (startLine == other.startLine) {
+                  if (startCol == other.startCol) {
+            return message.compareTo(other.message);
+          }
+          return Integer.compare(startCol, other.startCol);
+              }
+              return Integer.compare(startLine, other.startLine); 
+          }
+  
+      private String message;
+      private int startLine, startCol, endLine, endCol;
+      private int severity;
+      private String codeActionTitle;
+      private Set<LSPTextEdit> fixes;
+  
+      public LSPDiagnostic(String message, int startLine, int startCol, int endLine, int endCol, int severity, String codeActionTitle, Set<LSPTextEdit> fixes) {
+        this.message = message;
+        this.startLine = startLine;
+        this.startCol = startCol;
+        this.endLine = endLine;
+        this.endCol = endCol;
+        this.severity = severity;
+        this.codeActionTitle = codeActionTitle;
+        this.fixes = fixes;
+      }
+      
+      public String message() { return message; }
+      public int startLine() { return startLine; }
+      public int startCol() { return startCol; }
+      public int endLine() { return endLine; }
+      public int endCol() { return endCol; }
+      public int severity() { return severity; }
+      public String codeActionTitle() { return codeActionTitle; }
+      public Set<LSPTextEdit> fixes() { return fixes; }
+    }
+  
+    coll Set<LSPDiagnostic> Program.lsp_diagnostics() [new TreeSet<LSPDiagnostic>()] with add root Program;
+  
+    protected LSPDiagnostic ASTNode.diagnostic(String message, int severity) {
+      return new LSPDiagnostic(
+        message, 
+        getLine(getStart()) - 1, 
+        getColumn(getStart()) - 1, 
+        getLine(getEnd()) - 1, 
+        getColumn(getEnd()), 
+        severity,
+        "",
+        new HashSet<LSPTextEdit>()
+      );
+    }
+  
+    protected LSPDiagnostic ASTNode.diagnostic(String message, int severity, String codeActionTitle, Set<LSPTextEdit> fixes) {
+      return new LSPDiagnostic(
+        message, 
+        getLine(getStart()) - 1, 
+        getColumn(getStart()) - 1, 
+        getLine(getEnd()) - 1, 
+        getColumn(getEnd()), 
+        severity,
+        codeActionTitle,
+        fixes
+      );
+    }
+
+  }

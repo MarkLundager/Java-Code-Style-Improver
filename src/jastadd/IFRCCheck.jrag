@@ -89,4 +89,17 @@ aspect IFRC {
     when
     isReversedIFRC()
     to CompilationUnit.IFRC();
+
+    IfStmt contributes diagnostic(
+      "Unnecessary IF statement when returning the value of the condition.", 
+      2, 
+      "Make the ifstmt beautiful",
+      Set.of(new LSPTextEdit(
+        lineStart()-1, 
+        columnStart()-1, 
+        lineEnd()-1,
+        columnEnd(), 
+        getIFRCRepair().snd))
+      ) when isIFRC()
+          to Program.lsp_diagnostics() for program();
 }

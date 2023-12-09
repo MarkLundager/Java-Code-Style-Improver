@@ -54,6 +54,8 @@ aspect Analysis {
       root CompilationUnit;
 
 
+
+
   /**This class contains all the information related to a specific warning:
    * Location: file path.
    * Analysis: analysis identifier.

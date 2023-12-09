@@ -10,6 +10,7 @@ public class LmtsmTest {
         mark = 4 * mark;
         mark = mark * 4;
         mark = mark * apa;
+
     }
 
 }
